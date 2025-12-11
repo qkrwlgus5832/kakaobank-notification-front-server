@@ -56,6 +56,3 @@ services:
       /usr/bin/kafka-topics --bootstrap-server kafka:9092 --create --if-not-exists --topic noti-request --partitions 1 --replication-factor 1 &&
       /usr/bin/kafka-topics --bootstrap-server kafka:9092 --create --if-not-exists --topic noti-request-dlq --partitions 1 --replication-factor 1
     " ]
-volumes:
-  mysql_data:
-  redis_data:
