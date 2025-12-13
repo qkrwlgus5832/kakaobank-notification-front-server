@@ -8,6 +8,12 @@ import java.time.LocalDateTime
 @Entity
 @Table(
     name = "notification_log",
+    uniqueConstraints = [
+        UniqueConstraint(
+            name = "uk_notification_event_id",
+            columnNames = ["event_id"]
+        )
+    ],
     indexes = [
         Index(name = "idx_user_id", columnList = "user_id"),
         Index(name = "idx_status_send_at", columnList = "status, send_at"),
@@ -41,6 +47,7 @@ class NotificationLog(
     @Column(name = "send_at", nullable = false)
     val sendAt: LocalDateTime,
 
+    @Column(name = "event_id", nullable = false)
     val eventId: String,
 
     /** 재시도 횟수 */

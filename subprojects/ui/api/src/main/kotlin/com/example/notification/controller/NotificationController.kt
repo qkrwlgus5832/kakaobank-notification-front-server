@@ -24,7 +24,8 @@ class NotificationController(
     ): ResponseEntity<Void> {
         val event = NotificationEventFactory.from(request)
 
-        if (request.reserveTime == null) {
+        if (request.reserveTime == null) { // 즉시 전송이라면
+            notificationLogService.saveInstantNotification(event)
             notificationPublisher.publish(event)
         } else {
             notificationLogService.saveReserveNotification(event)

@@ -1,7 +1,6 @@
 package com.example.notification.service.log
 
 import com.example.notification.domain.entity.log.NotificationLog
-import com.example.notification.domain.enums.Channel
 import com.example.notification.domain.enums.NotificationStatus
 import com.example.notification.domain.event.NotificationEvent
 import com.example.notification.domain.repository.NotificationLogRepository
@@ -22,25 +21,10 @@ class NotificationLogService(
         private const val LOG_SEARCH_MONTH = 3L
     }
 
-    fun persistNotification(event: NotificationEvent): NotificationLog {
+    fun updateNotification(event: NotificationEvent): NotificationLog {
         val existed = notificationLogRepository.findFirstByEventId(event.eventId)
 
-        if (existed == null) {
-            val log = NotificationLog(
-                userId = event.target,
-                requesterId = event.requesterId,
-                channel = event.channel,
-                status = NotificationStatus.PENDING,
-                sendAt = LocalDateTime.now(),
-                eventId = event.eventId,
-                title = event.title,
-                contents = event.contents,
-                retryCount = 0
-            )
-
-            return notificationLogRepository.save(log)
-        }
-        else {
+        if (existed.status == NotificationStatus.FAIL || existed.status == NotificationStatus.RESERVED){
             if (existed.status == NotificationStatus.FAIL) {
                 existed.retryCount++
             }
@@ -48,6 +32,22 @@ class NotificationLogService(
         }
 
         return existed
+    }
+
+    fun saveInstantNotification(event: NotificationEvent): NotificationLog {
+        val log = NotificationLog(
+            userId = event.target,
+            requesterId = event.requesterId,
+            channel = event.channel,
+            status = NotificationStatus.PENDING,
+            sendAt = LocalDateTime.now(),
+            eventId = event.eventId,
+            title = event.title,
+            contents = event.contents,
+            retryCount = 0
+        )
+
+        return notificationLogRepository.save(log)
     }
 
     fun saveReserveNotification(event: NotificationEvent): NotificationLog {

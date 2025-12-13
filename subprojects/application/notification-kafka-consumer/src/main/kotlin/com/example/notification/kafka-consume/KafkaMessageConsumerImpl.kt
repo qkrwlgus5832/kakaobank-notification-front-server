@@ -23,20 +23,21 @@ class KafkaMessageConsumerImpl(
         event: NotificationEvent,
         acknowledgement: Acknowledgment
     ) {
-        val log = notificationLogService.persistNotification(event)
+        val log = notificationLogService.updateNotification(event)
 
-        try {
-            val result = notificationSender.send(event)
+        if (log.status == NotificationStatus.PENDING) {
+            try {
+                val result = notificationSender.send(event)
 
-            if (result == ResultCode.SUCCESS) {
-                log.status = NotificationStatus.SUCCESS
-            } else {
+                if (result == ResultCode.SUCCESS) {
+                    log.status = NotificationStatus.SUCCESS
+                } else {
+                    log.status = NotificationStatus.FAIL
+                }
+            } catch (exception: Exception) {
                 log.status = NotificationStatus.FAIL
             }
-        } catch (exception: Exception) {
-            log.status = NotificationStatus.FAIL
         }
-
         acknowledgement.acknowledge()
     }
 }
