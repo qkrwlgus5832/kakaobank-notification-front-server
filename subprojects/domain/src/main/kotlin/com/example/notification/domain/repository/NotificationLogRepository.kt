@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 import java.time.LocalDateTime
 
-interface NotificationLogRepository : JpaRepository<NotificationLog, Long> {
+interface NotificationLogRepository : JpaRepository<NotificationLog, Long>, NotificationLogQueryDslRepository {
     fun findFirstByEventId(eventId: String): NotificationLog
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
