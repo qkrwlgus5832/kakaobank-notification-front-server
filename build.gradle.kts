@@ -1,5 +1,7 @@
 val loggerVersion by extra { "2.0.13" }
 val httpClientVersion by extra { "4.5.14" }
+val mockKVersion by extra { "1.13.10" }
+val springMockkVersion by extra { "4.0.2" }
 
 plugins {
     kotlin("jvm") version "1.9.25"
@@ -45,6 +47,7 @@ subprojects {
         testImplementation("org.springframework.boot:spring-boot-starter-test")
         testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
         testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+        testImplementation("io.mockk:mockk:$mockKVersion")
     }
 
     noArg {

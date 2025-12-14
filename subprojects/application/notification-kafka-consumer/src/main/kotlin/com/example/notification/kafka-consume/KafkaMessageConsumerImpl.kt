@@ -8,12 +8,14 @@ import com.example.notification.service.log.NotificationLogService
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.kafka.support.Acknowledgment
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
+@Transactional
 class KafkaMessageConsumerImpl(
     private val notificationSender: NotificationServerSender,
     private val notificationLogService: NotificationLogService
-): KafkaMessageConsumer {
+): MessageConsumer {
 
     @KafkaListener(
         groupId = "task",
@@ -30,12 +32,12 @@ class KafkaMessageConsumerImpl(
                 val result = notificationSender.send(event)
 
                 if (result == ResultCode.SUCCESS) {
-                    log.status = NotificationStatus.SUCCESS
+                    log.markSuccess()
                 } else {
-                    log.status = NotificationStatus.FAIL
+                    log.markFail()
                 }
             } catch (exception: Exception) {
-                log.status = NotificationStatus.FAIL
+                log.markFail()
             }
         }
         acknowledgement.acknowledge()

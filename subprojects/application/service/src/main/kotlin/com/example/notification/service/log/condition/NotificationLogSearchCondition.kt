@@ -8,7 +8,7 @@ data class NotificationLogSearchCondition(
     val requesterId: String,
     val from: LocalDate?,
     val to: LocalDate,
-    val status: NotificationStatus?,
-    val channel: Channel?,
-    val userId: String?
+    val status: NotificationStatus? = null,
+    val channel: Channel? = null,
+    val userId: String? = null
 )

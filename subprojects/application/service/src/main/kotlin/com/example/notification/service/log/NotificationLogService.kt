@@ -25,9 +25,6 @@ class NotificationLogService(
         val existed = notificationLogRepository.findFirstByEventId(event.eventId)
 
         if (existed.status == NotificationStatus.FAIL || existed.status == NotificationStatus.RESERVED){
-            if (existed.status == NotificationStatus.FAIL) {
-                existed.retryCount++
-            }
             existed.markPending()
         }
 
@@ -80,7 +77,7 @@ class NotificationLogService(
             "시작날짜는 필수값입니다"
         }
 
-        require(condition.from.isBefore(condition.to)) {
+        require(condition.from.isBefore(condition.to) || condition.from == condition.to) {
             "시작날짜는 종료날짜보다 이전이어야 합니다."
         }
 
@@ -98,4 +95,5 @@ class NotificationLogService(
             pageable
         )
     }
+
 }

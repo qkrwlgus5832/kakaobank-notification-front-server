@@ -1,3 +1,5 @@
+val springMockkVersion: String by rootProject.extra
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -7,4 +9,5 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     api(project(":application:service"))
     implementation(project(":application:notification-kafka-consumer"))
+    testImplementation("com.ninja-squad:springmockk:$springMockkVersion")
 }

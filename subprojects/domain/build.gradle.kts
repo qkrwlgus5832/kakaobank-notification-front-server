@@ -5,6 +5,7 @@ dependencies {
     api("com.querydsl:querydsl-jpa:$queryDslVersion:jakarta")
     kapt("com.querydsl:querydsl-apt:$queryDslVersion:jakarta")
     runtimeOnly("com.h2database:h2")
+    testImplementation("com.h2database:h2")
 }
 
 tasks {
