@@ -99,8 +99,7 @@ Failed Scheduler와 Reserved Scheduler 모두 Kafka로 이벤트를 발행하도
    └── ui
    └── api
 ```
-
-멀티 모듈 구조로 구성하였으며
+- 멀티 모듈 구조로 구성하였으며
 **Layered Architecture (ui → application → domain / infra / client)** 를 따릅니다.
 각 모듈은 인터페이스 기반 설계로 확장성과 테스트 용이성을 고려했습니다.
 ---
