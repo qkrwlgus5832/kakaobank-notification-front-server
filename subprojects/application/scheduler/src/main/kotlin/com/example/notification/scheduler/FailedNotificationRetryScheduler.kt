@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 
 /**
- * 실패한 알람들을 30분마다 재시도 해주는 scheduler
+ * 실패한 알람들을 10분마다 재시도 해주는 scheduler
  */
 
 @Component
@@ -20,7 +20,7 @@ class FailedNotificationRetryScheduler(
         private const val MAX_RETRY_COUNT = 10
     }
     @Transactional
-    @Scheduled(cron = "0 */30 * * * *") // 30분마다 정각
+    @Scheduled(cron = "0 */10 * * * *") // 10분마다 정각
     fun retryFailedNotifications() {
         val logs = logRepository.findRetryableFailedLogs(MAX_RETRY_COUNT)
 
