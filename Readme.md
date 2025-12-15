@@ -6,8 +6,8 @@
 ---
 ## 2. 프로젝트 실행 방법
 ```bash
-   cd subprojects/infra
-   docker compose up
+ cd subprojects/infra
+ docker compose up
   # 이후 서버 실행
 ```
 
