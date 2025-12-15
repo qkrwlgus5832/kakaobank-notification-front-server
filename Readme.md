@@ -51,6 +51,7 @@
 Failed Scheduler와 Reserved Scheduler 모두 Kafka로 이벤트를 발행하도록 구성하여
 코드 중복을 줄이고 모듈 간 결합도를 낮췄습니다.
 
+---
 ## 5. 상세 설계
 
 🔹 **Kafka 활용**
@@ -83,7 +84,8 @@ Failed Scheduler와 Reserved Scheduler 모두 Kafka로 이벤트를 발행하도
 - ``(sendAt, createdAt)`` 복합 인덱스
 - ``event_id`` 유니크 키
 
-6. 프로젝트 구조
+---
+## 6. 프로젝트 구조
 ```
    └── subprojects
    ├── application
@@ -101,15 +103,15 @@ Failed Scheduler와 Reserved Scheduler 모두 Kafka로 이벤트를 발행하도
 멀티 모듈 구조로 구성하였으며
 **Layered Architecture (ui → application → domain / infra / client)** 를 따릅니다.
 각 모듈은 인터페이스 기반 설계로 확장성과 테스트 용이성을 고려했습니다.
-
-7. API 문서
+---
+## 7. API 문서
 
 Swagger UI: http://localhost:8080/swagger-ui.html
 
-8. Kafka UI
+## 8. Kafka UI
 
 http://localhost:6067
 
-9. H2 Console
+## 9. H2 Console
 
 http://localhost:8080/h2-console
